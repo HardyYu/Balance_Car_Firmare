@@ -1,0 +1,3 @@
+PWMChannel.cpp:7:1:PWMChannel::PWMChannel(uint16_t, GPIO_TypeDef*, TIM_HandleTypeDef*, uint16_t)	1
+PWMChannel.cpp:11:6:void PWMChannel::setup()	1
+PWMChannel.cpp:18:6:void PWMChannel::set(uint8_t)	5

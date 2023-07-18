@@ -1,0 +1,5 @@
+MotorEncoder.cpp:13:1:MotorEncoder::MotorEncoder(TIM_HandleTypeDef*, uint16_t, uint16_t)	1
+MotorEncoder.cpp:23:1:MotorEncoder::~MotorEncoder()	3
+MotorEncoder.cpp:29:6:bool MotorEncoder::MotorEncoder_Init()	1
+MotorEncoder.cpp:35:7:float MotorEncoder::getWheelSpeed()	1
+MotorEncoder.cpp:46:6:void MotorEncoder::setWheelSpeed(float)	4
