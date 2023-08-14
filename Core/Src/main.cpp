@@ -17,12 +17,18 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <cstdio>
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-
+extern "C" {
+    #include "../MPU6050_Lib/mpu6050.h"
+}
+#include "../ssd1306/ssd1306.h"
+#include "../ssd1306/ssd1306_tests.h"
+#include "../MotorControl/Inc/MotorEncoder.hpp"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -52,7 +58,8 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void flash_led();
+void show_string(char* sentence);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -96,6 +103,14 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  ssd1306_Init();
+  MPU6050_Init(&hi2c1);
+  MotorEncoder LMotor(&htim1, TIM_CHANNEL_1, TIM_CHANNEL_2);
+  char sentence[50];
+  MPU6050_t imu{
+	  .Gx = 0,
+	  .Temperature = 25
+  };
 
   /* USER CODE END 2 */
 
@@ -106,6 +121,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  flash_led();
+	  MPU6050_Read_All(&hi2c1, &imu);
+	  HAL_Delay (100);
+	  sprintf(sentence, "Gyro X: %d", (int)imu.Gx);
+	  show_string(sentence);
+	  LMotor.setWheelSpeed(10);
   }
   /* USER CODE END 3 */
 }
@@ -147,6 +168,24 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void flash_led()
+{
+	for(int i = 0; i < 4 ; i++)
+	{
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+		HAL_Delay(500);
+	}
+}
+
+void show_string(char* sentence)
+{
+	uint8_t y = 0;
+	ssd1306_Fill(White);
+	ssd1306_SetCursor(2, y);
+	ssd1306_WriteString(sentence ,Font_7x10 ,Black);
+	ssd1306_UpdateScreen();
+}
 
 /* USER CODE END 4 */
 

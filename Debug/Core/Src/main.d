@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -26,7 +26,13 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h \
+ ../Core/Src/../MPU6050_Lib/mpu6050.h ../Core/Src/../ssd1306/ssd1306.h \
+ ../Core/Src/../ssd1306/ssd1306_conf.h \
+ ../Core/Src/../ssd1306/ssd1306_fonts.h \
+ ../Core/Src/../ssd1306/ssd1306_tests.h \
+ ../Core/Src/../MotorControl/Inc/MotorEncoder.hpp \
+ ../Core/Src/../MotorControl/Inc/PWMChannel.hpp
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -59,3 +65,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/tim.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
+../Core/Src/../MPU6050_Lib/mpu6050.h:
+../Core/Src/../ssd1306/ssd1306.h:
+../Core/Src/../ssd1306/ssd1306_conf.h:
+../Core/Src/../ssd1306/ssd1306_fonts.h:
+../Core/Src/../ssd1306/ssd1306_tests.h:
+../Core/Src/../MotorControl/Inc/MotorEncoder.hpp:
+../Core/Src/../MotorControl/Inc/PWMChannel.hpp:

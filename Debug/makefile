@@ -10,9 +10,12 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Drivers/STM32F1xx_HAL_Driver/Src/subdir.mk
+-include Core/ssd1306/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include Core/MotorControl/Src/subdir.mk
+-include Core/MPU6050_Lib/subdir.mk
+-include Core/Common/Src/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -68,6 +71,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 Balance_Car_Firmware.list \
 
+OBJCOPY_HEX += \
+Balance_Car_Firmware.hex \
+
+OBJCOPY_BIN += \
+Balance_Car_Firmware.bin \
+
 
 # All Target
 all: main-build
@@ -91,12 +100,22 @@ Balance_Car_Firmware.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_
 	@echo 'Finished building: $@'
 	@echo ' '
 
+Balance_Car_Firmware.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "Balance_Car_Firmware.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+Balance_Car_Firmware.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Balance_Car_Firmware.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) Balance_Car_Firmware.elf Balance_Car_Firmware.list Balance_Car_Firmware.map default.size.stdout
+	-$(RM) Balance_Car_Firmware.bin Balance_Car_Firmware.elf Balance_Car_Firmware.hex Balance_Car_Firmware.list Balance_Car_Firmware.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
