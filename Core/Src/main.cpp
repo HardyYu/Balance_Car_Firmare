@@ -106,6 +106,7 @@ int main(void)
   ssd1306_Init();
   MPU6050_Init(&hi2c1);
   MotorEncoder LMotor(&htim1, TIM_CHANNEL_1, TIM_CHANNEL_2);
+  MotorEncoder RMotor(&htim2, TIM_CHANNEL_1 ,TIM_CHANNEL_2);
   char sentence[50];
   MPU6050_t imu{
 	  .Gx = 0,
@@ -126,7 +127,8 @@ int main(void)
 	  HAL_Delay (100);
 	  sprintf(sentence, "Gyro X: %d", (int)imu.Gx);
 	  show_string(sentence);
-	  LMotor.setWheelSpeed(10);
+	  LMotor.setWheelSpeed(-50);
+	  RMotor.setWheelSpeed(-50);
   }
   /* USER CODE END 3 */
 }

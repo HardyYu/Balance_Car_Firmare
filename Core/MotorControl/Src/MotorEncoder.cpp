@@ -18,6 +18,8 @@ MotorEncoder::MotorEncoder(TIM_HandleTypeDef* timer, uint16_t timer_channelA, ui
 	isForward = true;
 	forwardPWM = new PWMChannel(0, nullptr,timer, timer_channelA);
 	reversePWM = new PWMChannel(0, nullptr,timer, timer_channelB);
+	forwardPWM->setup();
+	reversePWM->setup();
 }
 
 MotorEncoder::~MotorEncoder()
@@ -55,6 +57,6 @@ void MotorEncoder::setWheelSpeed(float percentage)
 	}
 	else
 	{
-		reversePWM->set(percentage);
+		reversePWM->set(-percentage);
 	}
 }

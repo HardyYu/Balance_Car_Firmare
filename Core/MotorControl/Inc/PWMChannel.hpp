@@ -20,7 +20,7 @@ class PWMChannel {
         uint32_t period_ticks_;
 
         //values in us
-        static constexpr uint32_t PWM_PERIOD = 20000;
+        static constexpr uint32_t PWM_PERIOD = 100; //aka 10k pwm frequency
         static constexpr uint32_t MIN_SIGNAL = 950; //standard for 50hz pwm signal, with a 100 Hz margin added to ensure we can reach the extreme values.
         static constexpr uint32_t MAX_SIGNAL = 2050;
 
